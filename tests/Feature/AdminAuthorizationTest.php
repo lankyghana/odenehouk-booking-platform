@@ -1,0 +1,21 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class AdminAuthorizationTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_non_admin_cannot_access_admin_dashboard(): void
+    {
+        $user = User::factory()->create(['role' => 'customer']);
+
+        $response = $this->actingAs($user)->get(route('admin.dashboard'));
+
+        $response->assertForbidden();
+    }
+}
