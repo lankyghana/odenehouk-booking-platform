@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateBrandingRequest;
 use App\Models\BrandingSetting;
+use Illuminate\Support\Facades\Cache;
 
 class BrandingController extends Controller
 {
@@ -26,6 +27,8 @@ class BrandingController extends Controller
             $path = $request->file('hero_image')->store('branding', 'public');
             BrandingSetting::upsertValue('hero_image', $path);
         }
+
+        Cache::forget('home:branding');
 
         return redirect()->route('admin.branding.edit')->with('success', 'Branding updated successfully.');
     }
