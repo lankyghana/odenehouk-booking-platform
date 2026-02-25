@@ -26,20 +26,44 @@ class PaymentController extends Controller
     public function webhook(Request $request)
     {
         $payload = $request->getContent();
-        $signature = (string) $request->header('Stripe-Signature', '');
+        $signature = (string) $request->header('Stripe-Signature');
+        $secret = config('services.stripe.webhook_secret');
 
         try {
-            $event = $this->stripeService->verifyWebhookSignature($payload, $signature);
-            ProcessStripeWebhookJob::dispatch($event->toArray());
-
-            return response()->json(['status' => 'accepted'], Response::HTTP_ACCEPTED);
+            $event = \Stripe\Webhook::constructEvent(
+                $payload,
+                $signature,
+                $secret
+            );
         } catch (Throwable $e) {
-            Log::warning('payment.webhook_rejected', [
+            Log::error('Stripe webhook signature failed', [
                 'error' => $e->getMessage(),
             ]);
 
-            return response()->json(['error' => 'Invalid webhook request'], Response::HTTP_BAD_REQUEST);
+            return response()->json(['error' => 'Invalid signature'], Response::HTTP_BAD_REQUEST);
         }
+
+        ProcessStripeWebhookJob::dispatch($event->toArray());
+
+        switch ($event->type) {
+            case 'checkout.session.completed':
+                $session = $event->data->object;
+
+                Log::info('Stripe checkout completed', [
+                    'session_id' => $session->id,
+                ]);
+                break;
+
+            case 'payment_intent.succeeded':
+                $intent = $event->data->object;
+
+                Log::info('Stripe payment succeeded', [
+                    'intent_id' => $intent->id,
+                ]);
+                break;
+        }
+
+        return response()->json(['status' => 'success'], Response::HTTP_OK);
     }
 
     /**
