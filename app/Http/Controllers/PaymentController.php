@@ -110,6 +110,11 @@ class PaymentController extends Controller
         }
 
         $status = $payment->status?->value ?? (string) $payment->status;
+
+        if ($status === PaymentState::SUCCEEDED->value && $payment->booking) {
+            session(['booking_email' => $payment->booking->customer_email]);
+        }
+
         return response()->json([
             'status' => $status,
             'confirmation_url' => $status === PaymentState::SUCCEEDED->value
