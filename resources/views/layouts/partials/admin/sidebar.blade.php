@@ -25,7 +25,7 @@
                         $active = request()->routeIs($item['route'] . '*');
                     @endphp
                     <li>
-                        <a href="{{ route($item['route']) }}" class="group flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium transition-all {{ $active ? 'bg-primary-600 text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route($item['route']) }}" class="group flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium transition-all {{ $active ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900' }}">
                             <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg {{ $active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-white' }}">
                                 @if($item['icon'] === 'dashboard')
                                     <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2">

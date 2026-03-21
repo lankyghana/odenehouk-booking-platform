@@ -12,7 +12,7 @@
                 <p class="mt-2 max-w-2xl text-sm text-slate-600">Here is a quick view of booking activity, revenue, and customer growth.</p>
             </div>
             <div class="flex flex-wrap items-center gap-3">
-                <a href="{{ route('admin.bookings.index') }}" class="inline-flex items-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700">Manage bookings</a>
+                <a href="{{ route('admin.bookings.index') }}" class="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800">Manage bookings</a>
                 <a href="{{ route('home') }}" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">View site</a>
             </div>
         </div>
@@ -91,7 +91,7 @@
         <div class="rounded-xl border border-slate-200 bg-white shadow-sm" x-data="{ tab: 'all' }">
             <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
                 <h2 class="text-lg font-medium text-slate-900">Recent bookings</h2>
-                <a href="{{ route('admin.bookings.index') }}" class="text-sm font-medium text-primary-600 hover:text-primary-700">View all</a>
+                <a href="{{ route('admin.bookings.index') }}" class="text-sm font-medium text-slate-700 hover:text-slate-900">View all</a>
             </div>
             <div class="flex items-center gap-2 border-b border-slate-100 px-5 py-3 text-sm">
                 <button type="button" @click="tab = 'all'" :class="tab === 'all' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'" class="rounded-full px-3 py-1.5 transition">All</button>
@@ -126,7 +126,7 @@
         <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
                 <h2 class="text-lg font-medium text-slate-900">Upcoming schedule</h2>
-                <a href="{{ route('admin.bookings.calendar') }}" class="text-sm font-medium text-primary-600 hover:text-primary-700">Open calendar</a>
+                <a href="{{ route('admin.bookings.calendar') }}" class="text-sm font-medium text-slate-700 hover:text-slate-900">Open calendar</a>
             </div>
             <div class="divide-y divide-slate-100">
                 @forelse($upcomingBookings as $booking)
