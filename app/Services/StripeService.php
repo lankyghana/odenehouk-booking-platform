@@ -156,12 +156,11 @@ class StripeService
                     'payment_intent_id' => $paymentIntentId,
                     'stripe_event_id' => $stripeEventId,
                 ]);
-                return;
             }
 
             $payment->update([
-                'stripe_charge_id' => $charge->id ?? null,
-                'payment_method' => $paymentIntent->payment_method_types[0] ?? null,
+                'stripe_charge_id' => $charge->id ?? ($paymentIntent->latest_charge ?? null),
+                'payment_method' => $paymentIntent->payment_method ?? ($paymentIntent->payment_method_types[0] ?? null),
             ]);
 
             $this->paymentTransitionService->transition($payment, PaymentState::SUCCEEDED, [
