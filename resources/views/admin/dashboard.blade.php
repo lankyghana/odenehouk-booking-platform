@@ -4,34 +4,32 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-8">
-    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-900 text-white shadow-xl">
-        <div class="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl"></div>
-        <div class="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
-        <div class="relative p-6 sm:p-8 lg:p-10">
+    <section class="rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div class="p-6 sm:p-8 lg:p-10">
             <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                    <p class="text-xs uppercase tracking-[0.22em] text-cyan-200">Admin Overview</p>
-                    <h1 class="mt-2 text-3xl font-semibold sm:text-4xl">Dashboard</h1>
-                    <p class="mt-2 max-w-2xl text-slate-200">A clear snapshot of your bookings, revenue performance, and customer activity.</p>
+                    <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Admin Overview</p>
+                    <h1 class="mt-2 text-3xl font-semibold text-slate-900 sm:text-4xl">Dashboard</h1>
+                    <p class="mt-2 max-w-2xl text-slate-600">A clear snapshot of your bookings, revenue performance, and customer activity.</p>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('admin.bookings.index') }}" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm font-medium text-white ring-1 ring-white/25 backdrop-blur hover:bg-white/15">Manage bookings</a>
-                    <a href="{{ route('admin.branding.edit') }}" class="inline-flex items-center rounded-xl bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-cyan-300">Edit branding</a>
-                    <a href="{{ route('home') }}" class="inline-flex items-center rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-100">View site</a>
+                    <a href="{{ route('admin.bookings.index') }}" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Manage bookings</a>
+                    <a href="{{ route('admin.branding.edit') }}" class="inline-flex items-center rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700">Edit branding</a>
+                    <a href="{{ route('home') }}" class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">View site</a>
                 </div>
             </div>
             <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div class="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/20 backdrop-blur">
-                    <p class="text-xs uppercase tracking-wide text-cyan-100">Today</p>
-                    <p class="mt-1 text-2xl font-semibold">{{ $stats['today_bookings'] }}</p>
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <p class="text-xs uppercase tracking-wide text-slate-500">Today</p>
+                    <p class="mt-1 text-2xl font-semibold text-slate-900">{{ $stats['today_bookings'] }}</p>
                 </div>
-                <div class="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/20 backdrop-blur">
-                    <p class="text-xs uppercase tracking-wide text-cyan-100">Monthly revenue</p>
-                    <p class="mt-1 text-2xl font-semibold">${{ number_format($stats['month_revenue'], 2) }}</p>
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <p class="text-xs uppercase tracking-wide text-slate-500">Monthly revenue</p>
+                    <p class="mt-1 text-2xl font-semibold text-slate-900">${{ number_format($stats['month_revenue'], 2) }}</p>
                 </div>
-                <div class="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/20 backdrop-blur">
-                    <p class="text-xs uppercase tracking-wide text-cyan-100">Total customers</p>
-                    <p class="mt-1 text-2xl font-semibold">{{ $stats['total_customers'] }}</p>
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <p class="text-xs uppercase tracking-wide text-slate-500">Total customers</p>
+                    <p class="mt-1 text-2xl font-semibold text-slate-900">{{ $stats['total_customers'] }}</p>
                 </div>
             </div>
         </div>
