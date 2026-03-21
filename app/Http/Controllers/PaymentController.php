@@ -30,13 +30,9 @@ class PaymentController extends Controller
         $secret = config('services.stripe.webhook_secret');
 
         try {
-            $event = \Stripe\Webhook::constructEvent(
-                $payload,
-                $signature,
-                $secret
-            );
+            $event = $this->stripeService->verifyWebhookSignature($payload, $signature);
         } catch (Throwable $e) {
-            Log::error('Stripe webhook signature failed', [
+            Log::error('Webhook signature failed', [
                 'error' => $e->getMessage(),
             ]);
 

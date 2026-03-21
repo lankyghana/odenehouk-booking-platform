@@ -333,18 +333,17 @@ class StripeService
     /**
      * Verify webhook signature
      */
-    public function verifyWebhookSignature(string $payload, string $signature): StripeEventObject
+    public function verifyWebhookSignature($payload, $signature)
     {
-        $webhookSecret = config('services.stripe.webhook_secret');
-        if (empty($webhookSecret)) {
+        $secret = config('services.stripe.webhook_secret');
+        if (empty($secret)) {
             throw new \RuntimeException('Stripe webhook secret not configured');
         }
 
         return Webhook::constructEvent(
             $payload,
             $signature,
-            $webhookSecret,
-            300
+            $secret
         );
     }
 
