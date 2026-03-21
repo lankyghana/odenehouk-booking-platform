@@ -33,7 +33,7 @@
                                 <div class="font-medium text-gray-900">{{ $offer->title }}</div>
                                 <div class="text-sm text-gray-600">{{ Str::limit($offer->description, 80) }}</div>
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-700">${{ number_format($offer->price / 100, 2) }}</td>
+                            <td class="px-4 py-3 text-sm text-gray-700">${{ number_format($offer->price, 2) }}</td>
                             <td class="px-4 py-3 text-sm text-gray-700">{{ $offer->duration_minutes }} mins</td>
                             <td class="px-4 py-3 text-sm text-gray-700">{{ $offer->bookings_count }}</td>
                             <td class="px-4 py-3 text-sm text-gray-700">

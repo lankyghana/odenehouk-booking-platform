@@ -27,7 +27,10 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Booking::with(['offer', 'user', 'payment']);
+        $query = Booking::query()
+            ->with(['offer', 'user', 'payment'])
+            ->leftJoin('offers', 'offers.id', '=', 'bookings.offer_id')
+            ->select('bookings.*');
 
         // Filter by status
         if ($request->filled('status')) {
@@ -52,7 +55,8 @@ class BookingController extends Controller
             });
         }
 
-        $bookings = $query->orderBy('booking_date', 'desc')
+        $bookings = $query->orderByDesc('offers.created_at')
+            ->orderBy('booking_date', 'desc')
             ->orderBy('booking_time', 'desc')
             ->paginate(20);
 

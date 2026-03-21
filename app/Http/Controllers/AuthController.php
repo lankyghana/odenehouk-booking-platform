@@ -37,7 +37,13 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if ($request->user()?->isAdmin()) {
-                return redirect()->intended(route('admin.dashboard'));
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Admin users must sign in from the admin login page.',
+                ])->onlyInput('email');
             }
 
             return redirect()->intended(route('home'));

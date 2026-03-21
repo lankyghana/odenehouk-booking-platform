@@ -21,7 +21,7 @@
                     <div><dt class="text-gray-500">Status</dt><dd class="font-medium capitalize">{{ $booking->status }}</dd></div>
                     <div><dt class="text-gray-500">Date</dt><dd>{{ $booking->booking_date->format('M j, Y') }}</dd></div>
                     <div><dt class="text-gray-500">Time</dt><dd>{{ $booking->booking_time }} - {{ $booking->end_time }}</dd></div>
-                    <div><dt class="text-gray-500">Amount</dt><dd>${{ number_format($booking->total_amount / 100, 2) }}</dd></div>
+                    <div><dt class="text-gray-500">Amount</dt><dd>${{ number_format($booking->total_amount, 2) }}</dd></div>
                     <div><dt class="text-gray-500">Phone</dt><dd>{{ $booking->customer_phone }}</dd></div>
                 </dl>
             </div>
@@ -80,7 +80,7 @@
                 @if($booking->payment)
                     <dl class="space-y-2 text-sm text-gray-700">
                         <div class="flex justify-between"><span>Status</span><span class="capitalize">{{ $booking->payment->status }}</span></div>
-                        <div class="flex justify-between"><span>Amount</span><span>${{ number_format($booking->payment->amount / 100, 2) }}</span></div>
+                        <div class="flex justify-between"><span>Amount</span><span>${{ number_format($booking->payment->amount, 2) }}</span></div>
                         <div class="flex justify-between"><span>Method</span><span>{{ $booking->payment->provider ?? 'Stripe' }}</span></div>
                         <div class="flex justify-between"><span>Reference</span><span>{{ $booking->payment->provider_reference ?? 'N/A' }}</span></div>
                     </dl>

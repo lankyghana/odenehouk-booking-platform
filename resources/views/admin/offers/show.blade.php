@@ -24,7 +24,7 @@
                 <h2 class="text-lg font-semibold text-gray-900">Details</h2>
                 <p class="text-gray-700">{{ $offer->description }}</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-700">
-                    <div><span class="text-gray-500">Price</span><br>${{ number_format($offer->price / 100, 2) }}</div>
+                    <div><span class="text-gray-500">Price</span><br>${{ number_format($offer->price, 2) }}</div>
                     <div><span class="text-gray-500">Duration</span><br>{{ $offer->duration_minutes }} mins</div>
                     <div><span class="text-gray-500">Max/day</span><br>{{ $offer->max_bookings_per_day ?? '—' }}</div>
                 </div>
@@ -45,7 +45,7 @@
                                 <p class="text-sm text-gray-600">{{ $booking->booking_date->format('M j, Y') }} {{ $booking->booking_time }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm text-gray-700">${{ number_format($booking->total_amount / 100, 2) }}</p>
+                                <p class="text-sm text-gray-700">${{ number_format($booking->total_amount, 2) }}</p>
                                 <p class="text-xs uppercase tracking-wide text-gray-500">{{ $booking->status }}</p>
                             </div>
                         </div>

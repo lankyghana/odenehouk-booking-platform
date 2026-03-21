@@ -68,7 +68,7 @@
                                 <span class="text-gray-500">{{ $booking->booking_time }} - {{ $booking->end_time }}</span>
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-700 capitalize">{{ $booking->status }}</td>
-                            <td class="px-4 py-3 text-sm text-gray-700">${{ number_format($booking->total_amount / 100, 2) }}</td>
+                            <td class="px-4 py-3 text-sm text-gray-700">${{ number_format($booking->total_amount, 2) }}</td>
                             <td class="px-4 py-3 text-right">
                                 <a href="{{ route('admin.bookings.show', $booking) }}" class="text-primary-600 hover:text-primary-700 text-sm">View</a>
                             </td>

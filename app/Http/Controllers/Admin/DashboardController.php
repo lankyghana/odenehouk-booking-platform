@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Offer;
 use App\Models\Payment;
-use App\Models\BrandingSetting;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -18,7 +16,6 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = $this->getStats();
-        $branding = BrandingSetting::pluck('value', 'key');
         $recentBookings = Booking::with(['offer', 'user'])
             ->latest()
             ->take(10)
@@ -32,7 +29,7 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recentBookings', 'upcomingBookings', 'branding'));
+        return view('admin.dashboard', compact('stats', 'recentBookings', 'upcomingBookings'));
     }
 
     /**
