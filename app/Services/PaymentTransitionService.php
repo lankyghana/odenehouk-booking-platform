@@ -51,6 +51,7 @@ class PaymentTransitionService
                     'status' => 'confirmed',
                     'payment_status' => PaymentState::SUCCEEDED->value,
                     'payment_id' => (string) $freshPayment->id,
+                    'review_token' => \Illuminate\Support\Str::uuid(),
                 ]),
                 PaymentState::FAILED => $booking->update([
                     'payment_status' => PaymentState::FAILED->value,

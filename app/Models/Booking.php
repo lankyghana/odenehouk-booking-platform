@@ -27,6 +27,7 @@ class Booking extends Model
         'payment_status',
         'cancellation_reason',
         'cancelled_at',
+        'review_token',
     ];
 
     protected $casts = [
@@ -57,6 +58,26 @@ class Booking extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+
+    /**
+     * Get the review for this booking
+     */
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
+
+    /**
+     * Generate and set review token if not already set
+     */
+    public function generateReviewToken(): string
+    {
+        if (!$this->review_token) {
+            $this->review_token = \Illuminate\Support\Str::uuid();
+            $this->save();
+        }
+        return $this->review_token;
     }
 
     /**

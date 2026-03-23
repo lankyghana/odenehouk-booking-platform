@@ -142,10 +142,26 @@ class StripeService
         try {
             $payment = Payment::where('stripe_payment_intent_id', $paymentIntentId)->firstOrFail();
 
-            if (in_array($payment->status?->value ?? (string) $payment->status, [PaymentState::SUCCEEDED->value, PaymentState::REFUNDED->value], true)) {
+            // Idempotency guard: prevent duplicate processing
+            if ($payment->isSuccessful()) {
+                Log::info('payment.success_already_processed', [
+                    'payment_id' => $payment->id,
+                    'payment_intent_id' => $paymentIntentId,
+                    'stripe_event_id' => $stripeEventId,
+                ]);
                 return;
             }
-            
+
+            // Also prevent re-processing if already refunded
+            if (($payment->status?->value ?? (string) $payment->status) === PaymentState::REFUNDED->value) {
+                Log::info('payment.already_refunded_skip', [
+                    'payment_id' => $payment->id,
+                    'payment_intent_id' => $paymentIntentId,
+                    'stripe_event_id' => $stripeEventId,
+                ]);
+                return;
+            }
+
             $paymentIntent = PaymentIntent::retrieve($paymentIntentId);
 
             $charge = $paymentIntent->charges->data[0] ?? null;

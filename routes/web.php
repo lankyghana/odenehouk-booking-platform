@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\OfferController as AdminOfferController;
@@ -35,6 +36,12 @@ Route::prefix('payment')->name('payment.')->group(function () {
     Route::get('/success', [PaymentController::class, 'success'])->name('success');
     Route::get('/cancel', [PaymentController::class, 'cancel'])->name('cancel');
     Route::get('/status', [PaymentController::class, 'status'])->name('status');
+});
+
+// Review Routes (token-based access)
+Route::prefix('review')->name('review.')->group(function () {
+    Route::get('/{token}', [ReviewController::class, 'show'])->name('show');
+    Route::post('/{token}', [ReviewController::class, 'store'])->name('store');
 });
 
 // Stripe Webhook (exclude from CSRF protection)
