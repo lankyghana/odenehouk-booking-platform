@@ -174,6 +174,9 @@ class PaymentController extends Controller
             Log::error('payment.success_callback_failed', [
                 'payment_intent_id' => $paymentIntentId,
                 'error' => $e->getMessage(),
+                'exception_class' => get_class($e),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
             ]);
             return redirect()->route('home')
                 ->with('error', 'Unable to confirm payment. Please contact support.');
