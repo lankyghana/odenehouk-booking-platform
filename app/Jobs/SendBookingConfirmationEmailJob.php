@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class SendBookingConfirmationEmailJob implements ShouldQueue
 {
@@ -41,11 +42,22 @@ class SendBookingConfirmationEmailJob implements ShouldQueue
             return;
         }
 
-        Mail::to($booking->customer_email)->send(new BookingConfirmedMail($booking));
+        try {
+            Mail::to($booking->customer_email)->send(new BookingConfirmedMail($booking));
 
-        Log::info('booking.confirmation_email_sent', [
-            'booking_id' => $this->bookingId,
-            'customer_email' => $booking->customer_email,
-        ]);
+            Log::info('booking.confirmation_email_sent', [
+                'booking_id' => $this->bookingId,
+                'customer_email' => $booking->customer_email,
+            ]);
+        } catch (Throwable $e) {
+            Log::error('booking.confirmation_email_send_failed', [
+                'booking_id' => $this->bookingId,
+                'error' => $e->getMessage(),
+                'exception_class' => get_class($e),
+            ]);
+
+            // Do NOT re-throw - email failures should not block payment confirmation
+            // The job can be retried manually later, but won't crash the payment flow
+        }
     }
 }

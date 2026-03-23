@@ -183,7 +183,17 @@ class StripeService
                 'stripe_event_id' => $stripeEventId,
             ]);
 
-            SendBookingConfirmationEmailJob::dispatch($payment->booking_id);
+            // Dispatch email job (runs in background - won't block payment confirmation)
+            try {
+                SendBookingConfirmationEmailJob::dispatch($payment->booking_id);
+            } catch (\Exception $e) {
+                Log::warning('payment.email_job_dispatch_failed', [
+                    'payment_id' => $payment->id,
+                    'booking_id' => $payment->booking_id,
+                    'error' => $e->getMessage(),
+                ]);
+                // Don't throw - payment confirmation succeeded, email dispatch failed
+            }
 
             Log::info('payment.succeeded', [
                 'booking_id' => $payment->booking_id,
