@@ -72,6 +72,24 @@
                     <button type="submit" class="btn-danger">Cancel booking</button>
                 </form>
             </div>
+
+            <div class="bg-white rounded-xl shadow p-5 space-y-4">
+                <h2 class="text-lg font-semibold text-gray-900">Delete Booking</h2>
+                <p class="text-sm text-gray-600 mb-3">
+                    @if(in_array($booking->status, ['confirmed', 'pending']) && $booking->payment?->isSuccessful())
+                        Cannot delete bookings with successful payments. Please cancel and refund first.
+                    @else
+                        Permanently delete this booking record. This action cannot be undone.
+                    @endif
+                </p>
+                @if(!(in_array($booking->status, ['confirmed', 'pending']) && $booking->payment?->isSuccessful()))
+                    <form action="{{ route('admin.bookings.destroy', $booking) }}" method="POST" onsubmit="return confirm('Are you sure? This action cannot be undone.')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-danger">Delete booking</button>
+                    </form>
+                @endif
+            </div>
         </div>
 
         <div class="space-y-4">
