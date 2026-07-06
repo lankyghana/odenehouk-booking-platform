@@ -3,6 +3,9 @@
 @section('title', 'Confirming Payment')
 
 @section('content')
+<div class="container mx-auto px-4 max-w-xl">
+    @include('bookings.partials.steps', ['step' => 3])
+</div>
 <div class="max-w-xl mx-auto bg-white rounded-xl shadow p-8 text-center">
     <h1 class="text-2xl font-semibold mb-3">Confirming your booking</h1>
     <p class="text-gray-600 mb-6">This usually takes a few seconds. Please don't close this page.</p>
