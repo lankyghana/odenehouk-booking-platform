@@ -145,8 +145,8 @@
                     <p class="text-gray-600 text-sm">&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-600 hover:text-primary-600 text-sm">Privacy Policy</a>
-                    <a href="#" class="text-gray-600 hover:text-primary-600 text-sm">Terms of Service</a>
+                    <a href="{{ route('legal.privacy') }}" class="text-gray-600 hover:text-primary-600 text-sm">Privacy Policy</a>
+                    <a href="{{ route('legal.terms') }}" class="text-gray-600 hover:text-primary-600 text-sm">Terms of Service</a>
                     <a href="#" class="text-gray-600 hover:text-primary-600 text-sm">Contact</a>
                 </div>
             </div>
